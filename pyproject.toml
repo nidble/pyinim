@@ -1,0 +1,21 @@
+[project]
+name = "pyinim_nidble"
+version = "0.0.1"
+authors = [
+  { name="Antonino Bertulla", email="abertulla@email.address" },
+]
+description = "A Inim Cloud API client"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/nidble/pyinim"
+Issues = "https://github.com/nidble/pyinim/issues"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

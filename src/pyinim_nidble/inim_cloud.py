@@ -3,20 +3,24 @@ import aiohttp
 import time
 from typing import Any, Mapping, Tuple, cast
 
-from .auth import InimAuth
-from .resolver import CloudResolver
+from pyinim_nidble.cloud.resolver import CloudResolver
+from pyinim_nidble.cloud.types.token import Token
+from pyinim_nidble.cloud import abc
 
-from . import abc as inim_abc
+TOKEN_EXPIRATION_TIME = 86400 * 7 # 60 * 60 * 24 * 7 =  7 days < 2 months
 
-class InimCloudCli(inim_abc.InimAPI):
+class InimCloud(abc.InimAPI):
     def __init__(
         self, session: aiohttp.ClientSession, *args: Any, **kwargs: Any
     ) -> None:
         self._session = session
         resolver = CloudResolver(kwargs['username'], kwargs['password'], kwargs['client_id'])
+        self.name = kwargs['name']
+        self.expires_at = 0
+        self._token = None
+
         # super().__init__(*args, resolver=resolver, **kwargs)
-        super().__init__('requester', resolver=resolver)
-        self._auth = InimAuth(self)
+        super().__init__(self.name, resolver=resolver)
 
     async def _request(
         self, method: str, url: str, headers: Mapping[str, str], body: bytes = b""
@@ -30,5 +34,12 @@ class InimCloudCli(inim_abc.InimAPI):
         await asyncio.sleep(seconds)
 
     async def token(self) -> str:
-        return await self._auth.get_token()
-    
+        if not self._valid_token():
+            _, _, resp = await self.get_token()
+            self._token = resp.Data.Token
+            self.expires_at = time.time() + TOKEN_EXPIRATION_TIME
+
+        return self._token
+
+    def _valid_token(self) -> bool:
+        return cast(float, self.expires_at) > time.time()

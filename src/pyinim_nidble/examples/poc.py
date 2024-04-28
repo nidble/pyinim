@@ -1,18 +1,11 @@
 import aiohttp
 import asyncio
-import json
 import os
 from dotenv import load_dotenv
 
-from cloud.resolver import CloudResolver
-# from .cloud.types.devices import Devices, Data
-from cloud.inim import InimCloudCli
-from types import SimpleNamespace
-
-# from typing import Union
+from pyinim_nidble.inim_cloud import InimCloud
 
 load_dotenv()
-
 INIM_USER = os.getenv('INIM_USER')
 INIM_PASSWORD = os.getenv('INIM_PASSWORD')
 INIM_CLIENT_ID = os.getenv('INIM_CLIENT_ID')
@@ -27,7 +20,7 @@ def print_device_extended(devices_extended):
 
 async def poc():
     async with aiohttp.ClientSession() as session:
-        inim = InimCloudCli(session, username=INIM_USER, password=INIM_PASSWORD, client_id=INIM_CLIENT_ID)
+        inim = InimCloud(session, name="poc", username=INIM_USER, password=INIM_PASSWORD, client_id=INIM_CLIENT_ID)
         await inim.get_request_poll(INIM_DEVICE_ID)
         _st, _hs, devices_resp = await inim.get_devices_extended(INIM_DEVICE_ID)
 

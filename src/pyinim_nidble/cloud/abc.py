@@ -2,9 +2,9 @@
 import abc
 from typing import Optional as Mapping, Tuple, Mapping
 
-from cloud.resolver import CloudResolver
-from cloud.types.token import Token
-from cloud.types.devices import Devices
+from pyinim_nidble.cloud.resolver import CloudResolver
+from pyinim_nidble.cloud.types.token import Token
+from pyinim_nidble.cloud.types.devices import Devices
 
 class InimAPI(abc.ABC):
 
@@ -15,7 +15,6 @@ class InimAPI(abc.ABC):
         requester: str,
         *,
         resolver: CloudResolver,
-        # oauth_token: Opt[str] = None,
     ) -> None:
         self.requester = requester
         self.resolver = resolver

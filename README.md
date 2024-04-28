@@ -1,6 +1,17 @@
 # Library Documentation
 Simple API that provides "easy" access to INIM web services
 
+## Usage
+
+```sh
+python3 -m venv venv
+source venv/bin/activate.fish
+python3 -m pip install aiohttp==3.9.5
+# python3 -m pip install python-dotenv==1.0.1
+python3 -m pip install --index-url https://test.pypi.org/simple/ pyinim-nidble==0.0.10
+# python3 -m pip uninstall pyinim-nidble
+```
+
 ## Development
 
 ### Environment preparation
@@ -11,7 +22,8 @@ pipenv install --dev #this generate Pipfile.lock
 
 ### Running
 ```sh
-pipenv run python src/inim.py
+cd src
+pipenv run python src/pyinim_nidble/examples/poc.py
 ```
 
 ### Adding new lib
@@ -31,18 +43,32 @@ pip install --upgrade build
 python3 -m pip install build # see https://stackoverflow.com/questions/73987135/python3-m-build-gives-modulenotfounderror-no-module-named-pathlib2
 ```
 
-### Pipenv way
+### Publishing Pipenv way
 ```sh
 pipenv run pip install --upgrade build
 pipenv run python -m build --wheel
 ```
 
-
-### Classical way
+### Publishing Classical way
 ```sh
 pip install --upgrade build
-python -m build --wheel
+python -m build --wheel # for only wheel (this not produce tarball)
+python3 -m build # for wheel and tarball
 ```
+
+### Publishing
+[ref](https://packaging.python.org/en/latest/tutorials/packaging-projects/)
+###
+```sh
+python3 -m pip install --upgrade twine
+python3 -m twine upload --repository testpypi dist/*
+```
+
+### Publishing & Publishing
+```sh
+rm -rf ./dist && python3 -m build && python3 -m twine upload --repository testpypi dist/*
+```
+
 
 ## Some useful resources
 

@@ -1,6 +1,6 @@
 [project]
 name = "pyinim_nidble"
-version = "0.0.1"
+version = "0.0.10"
 authors = [
   { name="Antonino Bertulla", email="abertulla@email.address" },
 ]
@@ -11,6 +11,11 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+  "aiohttp>=3.7.4,<4.0.0"
+]
+[project.optional-dependencies]
+dotenv = [ "python-dotenv>=1.0.1" ]
 
 [project.urls]
 Homepage = "https://github.com/nidble/pyinim"

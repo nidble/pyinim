@@ -78,3 +78,14 @@ rm -rf ./dist && python3 -m build && python3 -m twine upload --repository testpy
 - [hass thread](https://community.home-assistant.io/t/inim-alarm/60354/56)
 - [INIM_API_notes](https://www.dropbox.com/s/sf0hze5n33hjie3/HomeAssistant_INIM_API_notes_public-v5.pdf?dl=0)
 <!-- https://github.com/gidgethub/gidgethub/tree/main/gidgethub -->
+
+# Disclaimer
+Pyinim is an unofficial module for achieving interoperability with Inim RESTful API.
+
+Author is in no way affiliated with Inim.
+
+All the api requests used within the library are available and published on the internet (examples linked above) and this module is purely just a wrapper around those https requests.
+
+Author does not guarantee functionality of this library and is not responsible for any damage.
+
+All product names, trademarks and registered trademarks in this repository, are property of their respective owners.

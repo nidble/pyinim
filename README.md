@@ -8,7 +8,7 @@ python3 -m venv venv
 source venv/bin/activate.fish
 python3 -m pip install aiohttp==3.9.5
 # python3 -m pip install python-dotenv==1.0.1
-python3 -m pip install --index-url https://test.pypi.org/simple/ pyinim-nidble==0.0.12
+python3 -m pip install --index-url https://test.pypi.org/simple/ pyinim-nidble==0.0.14
 # python3 -m pip uninstall pyinim-nidble
 ```
 

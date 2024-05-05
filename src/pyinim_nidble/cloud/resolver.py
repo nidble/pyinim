@@ -1,8 +1,8 @@
 import json
 from types import SimpleNamespace
 
-from pyinim_nidble.cloud.types.token import Token
-from pyinim_nidble.cloud.types.devices import Devices
+from pyinim.cloud.types.token import Token
+from pyinim.cloud.types.devices import Devices
 
 API_CLOUD_BASEURL="https://api.inimcloud.com"
 

@@ -13,7 +13,7 @@ class CloudResolver:
         self.client_id = client_id
 
     def get_token_url(self):
-        return f'{API_CLOUD_BASEURL}?req={{"Node":"","Name":"AlienMobilePro","ClientIP":"","Method":"RegisterClient","ClientId":"","Token":"","Params":{{"Username":"{self.username}","Password":"{self.password}","ClientId":"{self.client_id}","ClientName":"GalaxyS7edge","ClientInfo":"{{}}","Role":"1","Brand":"0"}}}}'
+        return f'{API_CLOUD_BASEURL}?req={{"Node":"","Name":"AlienMobilePro","ClientIP":"","Method":"RegisterClient","ClientId":"","Token":"","Params":{{"Username":"{self.username}","Password":"{self.password}","ClientId":"{self.client_id}","ClientName":"GalaxyS7edge","ClientInfo":"{{"name":"com.inim.alienmobile","version":"3.1.0","device":"hero2lte","brand":"samsung","platform":"android","osversion":"Oreo+v8.0,+API+Level:+26"}}","Role":"1","Brand":"0"}}}}'
 
     def get_devices_extended_url(self, token):
         return f'{API_CLOUD_BASEURL}?req={{"Params":{{"Info":4223}},"Node":"","Name":"Inim Home","ClientIP":"","Method":"GetDevicesExtended","Token":"{token}","ClientId": "{self.client_id}","Context":"intrusion"}}'

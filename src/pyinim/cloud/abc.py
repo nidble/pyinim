@@ -2,6 +2,7 @@
 import abc
 from typing import Optional as Mapping, Tuple, Mapping
 
+from pyinim.cloud.exceptions import MalformedResponseError
 from pyinim.cloud.resolver import CloudResolver
 from pyinim.cloud.types.token import Token
 from pyinim.cloud.types.devices import Devices
@@ -36,7 +37,10 @@ class InimAPI(abc.ABC):
 
     async def get_token(self) -> Tuple[int, Mapping[str, str], Token]:
         status, headers, raw_response = await self._request('GET', self.resolver.get_token_url(), headers={})
-        return status, headers, self.resolver.str_to_token(raw_response)
+        parsed_response = self.resolver.str_to_token(raw_response)
+        if parsed_response.Data is None:
+            raise MalformedResponseError(f"Failed to get Token with {status=} and payload {raw_response=}")
+        return status, headers, parsed_response
 
     async def get_request_poll(self, device_id: str) -> Tuple[int, Mapping[str, str], None]:
         status, headers, raw_response = await self._request('GET', self.resolver.get_request_poll_url(await self.token(), device_id), headers={})

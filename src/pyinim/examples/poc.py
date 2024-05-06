@@ -3,7 +3,7 @@ import asyncio
 import os
 from dotenv import load_dotenv
 
-from pyinim_nidble.inim_cloud import InimCloud
+from pyinim.inim_cloud import InimCloud
 
 load_dotenv()
 INIM_USER = os.getenv('INIM_USER')

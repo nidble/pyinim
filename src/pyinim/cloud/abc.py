@@ -2,9 +2,9 @@
 import abc
 from typing import Optional as Mapping, Tuple, Mapping
 
-from pyinim_nidble.cloud.resolver import CloudResolver
-from pyinim_nidble.cloud.types.token import Token
-from pyinim_nidble.cloud.types.devices import Devices
+from pyinim.cloud.resolver import CloudResolver
+from pyinim.cloud.types.token import Token
+from pyinim.cloud.types.devices import Devices
 
 class InimAPI(abc.ABC):
 

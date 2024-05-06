@@ -3,9 +3,9 @@ import aiohttp
 import time
 from typing import Any, Mapping, Tuple, cast
 
-from pyinim_nidble.cloud.resolver import CloudResolver
-from pyinim_nidble.cloud.types.token import Token
-from pyinim_nidble.cloud import abc
+from pyinim.cloud.resolver import CloudResolver
+from pyinim.cloud.types.token import Token
+from pyinim.cloud import abc
 
 TOKEN_EXPIRATION_TIME = 86400 * 7 # 60 * 60 * 24 * 7 =  7 days < 2 months
 

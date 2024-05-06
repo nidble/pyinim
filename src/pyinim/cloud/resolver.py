@@ -25,14 +25,7 @@ class CloudResolver:
                 "Password": f'{self.password}',
                 "ClientId": f'{self.client_id}',
                 "ClientName": "Galaxy+S8+edge",
-                "ClientInfo": json.dumps({
-                    "name": "com.inim.alienmobile",
-                    "version": "3.1.0",
-                    "device": "hero2lte",
-                    "brand": "samsung",
-                    "platform": "android",
-                    "osversion": "Oreo+v8.0,+API+Level:+26"
-                }),
+                "ClientInfo": json.dumps({}),
             "Role": "1",
             "Brand": "0"
             }

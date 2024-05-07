@@ -27,7 +27,7 @@ pipenv install --dev #this generate Pipfile.lock
 
 ### Running
 ```sh
-cd src
+export PYTHONPATH="${PYTHONPATH}:$PWD" # or set --export PYTHONPATH ./src
 pipenv run python src/pyinim/examples/poc.py
 ```
 

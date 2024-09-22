@@ -102,8 +102,8 @@ To discover your device ID you can use the method `InimCloud.get_devices_list`.
 To do so you can use the script in the `tool` path following the example:
 
 ```bash
-git clone https://github.com/${repository.owner}${repository.name}
-cd ${repository.name}
+git clone https://github.com/nidble/pyinim
+cd pyinim
 python -m venv venv
 source venv/bin/activate
 pip install -r tools/requirements.txt

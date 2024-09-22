@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-import aiohttp
+import argparse
 import asyncio
+import json
 import os
 import sys
-from dotenv import load_dotenv
-import argparse
 import uuid
-import json
+
+import aiohttp
+from dotenv import load_dotenv
 
 # Add the src directory to the PyInim path
 sys.path.append("../src")
 
 from pyinim.inim_cloud import InimCloud  # correct this import
-from types import SimpleNamespace
 
 load_dotenv()
 

@@ -9,7 +9,7 @@ source venv/bin/activate.fish
 python3 -m pip install aiohttp==3.9.5
 # python3 -m pip install python-dotenv==1.0.1
 
-# deprecated: 
+# deprecated:
 #python3 -m pip install --index-url https://test.pypi.org/simple/ pyinim-nidble==0.0.x
 # python3 -m pip uninstall pyinim-nidble
 
@@ -36,15 +36,15 @@ pipenv run python src/pyinim/examples/poc.py
 pipenv install python-dotenv
 ```
 
-## Building the package 
+## Building the package
 
 ### Environment preparation
 ```sh
 pip3 install --upgrade setuptools
 
-# NO: 
+# NO:
 pip install --upgrade build
-# Yes: 
+# Yes:
 python3 -m pip install build # see https://stackoverflow.com/questions/73987135/python3-m-build-gives-modulenotfounderror-no-module-named-pathlib2
 ```
 
@@ -94,3 +94,18 @@ All the api requests used within the library are available and published on the 
 Author does not guarantee functionality of this library and is not responsible for any damage.
 
 All product names, trademarks and registered trademarks in this repository, are property of their respective owners.
+
+
+# Discover your device ID
+
+To discover your device ID you can use the method `InimCloud.get_devices_list`.
+To do so you can use the script in the `tool` path following the example:
+
+```bash
+git clone https://github.com/${repository.owner}${repository.name}
+cd ${repository.name}
+python -m venv venv
+source venv/bin/activate
+pip install -r tools/requirements.txt
+python tools/list_devices_id.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD>
+```

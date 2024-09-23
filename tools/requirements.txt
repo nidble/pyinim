@@ -7,6 +7,7 @@ frozenlist==1.4.1
 idna==3.10
 multidict==6.1.0
 Pygments==2.18.0
+pyinim==0.0.18
 python-dotenv==1.0.1
 uuid==1.30
 yarl==1.11.1

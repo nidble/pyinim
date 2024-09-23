@@ -41,6 +41,21 @@ async def poc():
     parser.add_argument("--username", help="Inim User Name")
     parser.add_argument("--password", help="Inim Password")
     parser.add_argument("--client_id", help="Inim Client ID")
+    parser.add_argument(
+        "--list",
+        choices=["deviceid", "areas", "scenarios"],  # Added "scenarios"
+        required=True,
+        help="Specify whether to list 'deviceid', 'areas', or 'scenarios'",
+    )
+    parser.add_argument(
+        "--deviceid",
+        help="Optional device ID to filter results for 'areas' and 'scenarios'",
+    )
+    parser.add_argument(
+        "--dump",
+        metavar="filename",
+        help="Dump the raw JSON response to the specified file",
+    )
     args = parser.parse_args()
 
     # Use arguments if provided, otherwise fall back to environment variables
@@ -54,6 +69,7 @@ async def poc():
             "Error: Missing required arguments or environment variables. Please provide username and password."
         )
         sys.exit(1)
+
     async with aiohttp.ClientSession() as session:
         inim = InimCloud(
             session,
@@ -65,7 +81,22 @@ async def poc():
             client_id=INIM_CLIENT_ID,
         )
         _st, _hs, devices_resp = await inim.get_devices_list()
-        extract_device_info(devices_resp)
+
+        # Dump JSON to file if --dump is specified
+        if args.dump:
+            try:
+                with open(args.dump, "w") as f:
+                    json.dump(devices_resp, f, indent=4)
+                print(f"JSON response dumped to {args.dump}")
+            except Exception as e:
+                print(f"Error dumping JSON to file: {e}")
+
+        if args.list == "deviceid":
+            extract_device_info(devices_resp)
+        elif args.list == "areas":
+            extract_areas_id(devices_resp, args.deviceid)
+        elif args.list == "scenarios":  # Added "scenarios" branch
+            extract_scenarios_id(devices_resp, args.deviceid)
 
 
 def extract_device_info(devices_list):
@@ -92,7 +123,32 @@ def extract_device_info(devices_list):
         )
 
 
-# Example usage:
+def extract_areas_id(data, device_id=None):
+    for data_key, device_data in data["Data"].items():
+        if device_id is not None and data_key != device_id:
+            continue  # Skip if device ID doesn't match
+
+        print(
+            f"{BRIGHT_RED}Device ID:{RESET}{BOLD}{LIGHT_RED}{POINTER}{RESET}{BOLD} {data_key} {LIGHT_RED}{POINTER_R}{RESET}"
+        )
+        for area in device_data["Areas"]:
+            print(
+                f"  {BRIGHT_GREEN}Area ID:{RESET}{LIGHT_GREEN}{area['AreaId']}{RESET}, {BRIGHT_BLUE}Name: {RESET}{LIGHT_BLUE}{area['Name']}{RESET}"
+            )
+
+
+def extract_scenarios_id(data, device_id=None):
+    for data_key, device_data in data["Data"].items():
+        if device_id is not None and data_key != device_id:
+            continue  # Skip if device ID doesn't match
+
+        print(
+            f"{BRIGHT_RED}Device ID:{RESET}{BOLD}{LIGHT_RED}{POINTER}{RESET}{BOLD} {data_key} {LIGHT_RED}{POINTER_R}{RESET}"
+        )
+        for scenario in device_data["Scenarios"]:
+            print(
+                f"  {BRIGHT_GREEN}Scenario ID:{RESET}{LIGHT_GREEN}{scenario['ScenarioId']}{RESET}, {BRIGHT_BLUE}Name: {RESET}{LIGHT_BLUE}{scenario['Name']}{RESET}"
+            )
 
 
 async def main():

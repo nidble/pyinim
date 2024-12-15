@@ -9,7 +9,7 @@ source venv/bin/activate.fish
 python3 -m pip install aiohttp==3.9.5
 # python3 -m pip install python-dotenv==1.0.1
 
-# deprecated: 
+# deprecated:
 #python3 -m pip install --index-url https://test.pypi.org/simple/ pyinim-nidble==0.0.x
 # python3 -m pip uninstall pyinim-nidble
 
@@ -36,15 +36,15 @@ pipenv run python src/pyinim/examples/poc.py
 pipenv install python-dotenv
 ```
 
-## Building the package 
+## Building the package
 
 ### Environment preparation
 ```sh
 pip3 install --upgrade setuptools
 
-# NO: 
+# NO:
 pip install --upgrade build
-# Yes: 
+# Yes:
 python3 -m pip install build # see https://stackoverflow.com/questions/73987135/python3-m-build-gives-modulenotfounderror-no-module-named-pathlib2
 ```
 
@@ -94,3 +94,57 @@ All the api requests used within the library are available and published on the 
 Author does not guarantee functionality of this library and is not responsible for any damage.
 
 All product names, trademarks and registered trademarks in this repository, are property of their respective owners.
+
+
+# Inim CLI
+
+You can use this small script to interact with your InimAlarm and list various components.
+
+
+## Install the CLI
+```bash
+git clone https://github.com/nidble/pyinim
+cd pyinim
+python -m venv venv
+source venv/bin/activate
+pip install -r tools/requirements.txt
+```
+
+## Read the Help for the usage:
+```txt
+❯ ./inim_cli.py --help
+usage: inim_cli.py [-h] [--username USERNAME] [--password PASSWORD] [--client_id CLIENT_ID] --list {deviceid,areas,scenarios} [--deviceid DEVICEID] [--dump filename]
+
+options:
+  -h, --help            show this help message and exit
+  --username USERNAME   Inim User Name
+  --password PASSWORD   Inim Password
+  --client_id CLIENT_ID
+                        Inim Client ID
+  --list {deviceid,areas,scenarios}
+                        Specify whether to list 'deviceid', 'areas', or 'scenarios'
+  --deviceid DEVICEID   Optional device ID to filter results for 'areas' and 'scenarios'
+  --dump filename       Dump the raw JSON response to the specified file
+```
+
+## Discover your devices ID
+```bash
+python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --list deviceid
+```
+
+## Discover your Areas ID
+```bash
+python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --list areas
+```
+
+## Discover your Scenarios ID
+```bash
+python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --list scenarios
+```
+
+## TroubleShooting Info and Debug
+
+To debug your Alarm you can dump the status via --dump
+```bash
+python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --dump=debug.json
+```

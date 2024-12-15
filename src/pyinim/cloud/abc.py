@@ -1,13 +1,15 @@
 """Provide an abstract base class for easier requests."""
 
 import abc
-from typing import Optional as Mapping, Tuple, Mapping
+from typing import Tuple, Mapping
+import logging
 
 from pyinim.cloud.exceptions import MalformedResponseError
 from pyinim.cloud.resolver import CloudResolver
 from pyinim.cloud.types.token import Token
 from pyinim.cloud.types.devices import Devices
 
+_LOGGER = logging.getLogger(__name__)
 
 class InimAPI(abc.ABC):
     """Provide an idiomatic API for making calls to Inim's API."""
@@ -65,7 +67,13 @@ class InimAPI(abc.ABC):
             self.resolver.get_devices_extended_url(await self.token()),
             headers={},
         )
-        return status, headers, self.resolver.str_to_devices(raw_response, device_id)
+        try:
+            response = self.resolver.str_to_devices(raw_response, device_id)
+        except Exception as e:
+            message = f"Failed to get Devices with {status=} and payload {raw_response=}"
+            _LOGGER.warning(message)
+            raise MalformedResponseError(message) from e
+        return status, headers, response
 
     async def get_activate_scenario(
         self, device_id: str, scenario_id: str

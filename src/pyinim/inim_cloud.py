@@ -7,7 +7,8 @@ from pyinim.cloud.resolver import CloudResolver
 from pyinim.cloud.types.token import Token
 from pyinim.cloud import abc
 
-TOKEN_EXPIRATION_TIME = 86400 * 7 # 60 * 60 * 24 * 7 =  7 days < 2 months
+# TOKEN_EXPIRATION_TIME = 86400 * 7 # 60 * 60 * 24 * 7 =  7 days < 2 months
+TOKEN_EXPIRATION_TIME = 21600 # 60 * 60 * 6 = every 6 hours
 
 class InimCloud(abc.InimAPI):
     def __init__(

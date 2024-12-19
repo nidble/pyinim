@@ -102,17 +102,18 @@ You can use this small script to interact with your InimAlarm and list various c
 
 
 ## Install the CLI
-```bash
+```sh
 git clone https://github.com/nidble/pyinim
 cd pyinim
-python -m venv venv
-source venv/bin/activate
-pip install -r tools/requirements.txt
+python3 -m pip install pipenv
+pipenv install --dev
+export PYTHONPATH="${PYTHONPATH}:$PWD/src" # or set --export PYTHONPATH ./src
+pipenv run python tools/inim_cli.py
 ```
 
 ## Read the Help for the usage:
 ```txt
-❯ ./inim_cli.py --help
+❯ pipenv run python tools/inim_cli.py --help
 usage: inim_cli.py [-h] [--username USERNAME] [--password PASSWORD] [--client_id CLIENT_ID] --list {deviceid,areas,scenarios} [--deviceid DEVICEID] [--dump filename]
 
 options:
@@ -128,23 +129,23 @@ options:
 ```
 
 ## Discover your devices ID
-```bash
-python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --list deviceid
+```sh
+pipenv run python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --list deviceid
 ```
 
 ## Discover your Areas ID
-```bash
-python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --list areas
+```sh
+pipenv run python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --list areas
 ```
 
 ## Discover your Scenarios ID
-```bash
-python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --list scenarios
+```sh
+pipenv run python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --list scenarios
 ```
 
 ## TroubleShooting Info and Debug
 
 To debug your Alarm you can dump the status via --dump
-```bash
-python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --dump=debug.json
+```sh
+pipenv run python tools/inim_cli.py --username <YOUR_INIM_USERNAME> --password <YOUR_INIM_PASSWORD> --dump=debug.json
 ```

@@ -2,23 +2,15 @@
 import argparse
 import asyncio
 import json
-import os
 import sys
 import uuid
 
 import aiohttp
-from dotenv import load_dotenv
 
 # Add the src directory to the PyInim path
 sys.path.append("../src")
 
 from pyinim.inim_cloud import InimCloud  # correct this import
-
-load_dotenv()
-
-INIM_USER = os.getenv("INIM_USER")
-INIM_PASSWORD = os.getenv("INIM_PASSWORD")
-INIM_CLIENT_ID = os.getenv("INIM_CLIENT_ID")
 
 POINTER = "❯"
 POINTER_R = "❮"
@@ -58,10 +50,9 @@ async def poc():
     )
     args = parser.parse_args()
 
-    # Use arguments if provided, otherwise fall back to environment variables
-    username = args.username or INIM_USER
-    password = args.password or INIM_PASSWORD
-    client_id = args.client_id or INIM_CLIENT_ID or str(uuid.uuid4())
+    username = args.username
+    password = args.password
+    client_id = args.client_id or str(uuid.uuid4())
 
     # Check if values are empty and exit with error if so
     if not all([username, password, client_id]):
@@ -74,11 +65,9 @@ async def poc():
         inim = InimCloud(
             session,
             name="poc",
-            username=args.username
-            or INIM_USER,  # Use argument if provided, otherwise default
-            password=args.password
-            or INIM_PASSWORD,  # Use argument if provided, otherwise default
-            client_id=INIM_CLIENT_ID,
+            username=username,
+            password=password,
+            client_id=client_id,
         )
         _st, _hs, devices_resp = await inim.get_devices_list()
 

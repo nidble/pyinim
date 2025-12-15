@@ -1,6 +1,6 @@
 [project]
 name = "pyinim"
-version = "0.0.19"
+version = "0.0.20"
 authors = [
   { name="Antonino Bertulla", email="abertulla@email.address" },
 ]

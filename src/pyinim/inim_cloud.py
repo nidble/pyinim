@@ -42,5 +42,9 @@ class InimCloud(abc.InimAPI):
 
         return self._token
 
+    def reset_token(self) -> None:
+        self.expires_at = 0
+        self._token = None
+
     def _valid_token(self) -> bool:
         return cast(float, self.expires_at) > time.time()

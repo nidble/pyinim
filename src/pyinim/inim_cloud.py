@@ -15,7 +15,7 @@ class InimCloud(abc.InimAPI):
         self, session: aiohttp.ClientSession, *args: Any, **kwargs: Any
     ) -> None:
         self._session = session
-        resolver = CloudResolver(kwargs['username'], kwargs['password'], kwargs['client_id'])
+        resolver = CloudResolver(kwargs['username'], kwargs['password'], kwargs['client_id'], kwargs['code'])
         self.name = kwargs['name']
         self.expires_at = 0
         self._token = None

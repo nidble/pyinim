@@ -114,12 +114,13 @@ pipenv run python tools/inim_cli.py
 ## Read the Help for the usage:
 ```txt
 ❯ pipenv run python tools/inim_cli.py --help
-usage: inim_cli.py [-h] [--username USERNAME] [--password PASSWORD] [--client_id CLIENT_ID] --list {deviceid,areas,scenarios} [--deviceid DEVICEID] [--dump filename]
+usage: inim_cli.py [-h] [--username USERNAME] [--password PASSWORD] [--code CODE] [--client_id CLIENT_ID] --list {deviceid,areas,scenarios} [--deviceid DEVICEID] [--dump filename]
 
 options:
   -h, --help            show this help message and exit
   --username USERNAME   Inim User Name
   --password PASSWORD   Inim Password
+  --code CODE           Inim PIN Code
   --client_id CLIENT_ID
                         Inim Client ID
   --list {deviceid,areas,scenarios}

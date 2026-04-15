@@ -1,17 +1,19 @@
 import json
 from types import SimpleNamespace
-import sys
 from pyinim.cloud.types.token import Token
 from pyinim.cloud.types.devices import Devices
 
 API_CLOUD_BASEURL = "https://api.inimcloud.com"
+ENABLE_BYPASS_MODE = 3
+DISABLE_BYPASS_MODE = 0
 
 
 class CloudResolver:
-    def __init__(self, username, password, client_id):
+    def __init__(self, username, password, client_id, code):
         self.password = password
         self.username = username
         self.client_id = client_id
+        self.code = code
 
     def get_token_url(self):
         data = {
@@ -44,6 +46,15 @@ class CloudResolver:
 
     def get_devices_extended_url(self, token):
         return f'{API_CLOUD_BASEURL}?req={{"Params":{{"Info":4223}},"Node":"","Name":"Inim Home","ClientIP":"","Method":"GetDevicesExtended","Token":"{token}","ClientId": "{self.client_id}","Context":"intrusion"}}'
+
+    def get_enable_bypass_zone(self, token, device_id, zone_id):
+        return self.__get_bypass_zone(token, device_id, zone_id, ENABLE_BYPASS_MODE)
+
+    def get_disable_bypass_zone(self, token, device_id, zone_id):
+        return self.__get_bypass_zone(token, device_id, zone_id, DISABLE_BYPASS_MODE)
+
+    def __get_bypass_zone(self, token, device_id, zone_id, bypass_mode):
+        return f'{API_CLOUD_BASEURL}?req={{"Node":"","Name":"AlienMobilePro","ClientIP":"","Method":"InsertZone","ClientId":"{self.client_id}","Token":"{token}","Params":{{"DeviceId":"{device_id}","ZoneId":{zone_id},"Value":0,"Mode":{bypass_mode},"Code":"{self.code}"}}}}'
 
     def get_request_poll_url(self, token, device_id):
         return f'{API_CLOUD_BASEURL}?req={{"Params":{{"DeviceId":{device_id},"Type":5}},"Node":"","Name":"Inim Home","ClientIP":"","Method":"RequestPoll","Token":"{token}","ClientId":"{self.client_id}","Context":"intrusion"}}'

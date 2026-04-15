@@ -99,3 +99,13 @@ class InimAPI(abc.ABC):
             headers,
             self.resolver.str_to_devices_list(raw_response),
         )
+
+    async def get_bypass_mode(self, device_id: int, zone_id: int, enable: bool) -> Tuple[int, Mapping[str, str], str]:
+        """Enable/Disable bypass zone."""
+        method = self.resolver.get_enable_bypass_zone if enable else self.resolver.get_disable_bypass_zone
+        status, headers, raw_response = await self._request(
+            "GET",
+            method(await self.token(), device_id, zone_id),
+            headers={},
+        )
+        return status, headers, raw_response

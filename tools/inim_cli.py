@@ -32,6 +32,7 @@ async def poc():
     parser = argparse.ArgumentParser()
     parser.add_argument("--username", help="Inim User Name")
     parser.add_argument("--password", help="Inim Password")
+    parser.add_argument("--code", help="Inim PIN Code")
     parser.add_argument("--client_id", help="Inim Client ID")
     parser.add_argument(
         "--list",
@@ -53,11 +54,12 @@ async def poc():
     username = args.username
     password = args.password
     client_id = args.client_id or str(uuid.uuid4())
+    code = args.code or "1234"
 
     # Check if values are empty and exit with error if so
-    if not all([username, password, client_id]):
+    if not all([username, password, client_id, code]):
         print(
-            "Error: Missing required arguments or environment variables. Please provide username and password."
+            "Error: Missing required arguments or environment variables. Please provide username, password and code."
         )
         sys.exit(1)
 
@@ -68,6 +70,7 @@ async def poc():
             username=username,
             password=password,
             client_id=client_id,
+            code=code
         )
         _st, _hs, devices_resp = await inim.get_devices_list()
 
